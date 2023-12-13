@@ -3,12 +3,20 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form"
 import { useState } from "react";
 
-function AddModal({ show, handleClose, drName }) {
+function AddModal({ show, handleClose, drName, handleAdd}) {
     const [name, setName]=useState("")
     const [date, setDate]= useState("")
     const handleSubmit=(e)=>{
         e.preventDefault()
         console.log(name,date);
+        const newAppointment={
+          id:new Date().getTime(),
+          patient:name,
+          day:date,
+          consulted:false,
+          doctor:drName
+        }
+        handleAdd(newAppointment)
     }
   return (
     <>
@@ -24,7 +32,7 @@ function AddModal({ show, handleClose, drName }) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Date</Form.Label>
               <Form.Control onChange={(e)=>setDate(e.target.value)} type="datetime-local" placeholder="Date" required />
             </Form.Group>
             <div className="text-center">
